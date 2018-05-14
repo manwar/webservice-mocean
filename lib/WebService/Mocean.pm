@@ -1,8 +1,24 @@
 package WebService::Mocean;
 
 use strict;
+use warnings;
 use 5.008_005;
+
+use Method::Signatures;
+
 our $VERSION = '0.01';
+
+method new ($class: Str :$api_key, Str :$api_secret) {
+    my $self = {};
+
+    $self->{api_key} = $api_key;
+    $self->{api_secret} = $api_secret;
+
+    bless $self, $class;
+
+    return $self;
+}
+
 
 1;
 __END__
