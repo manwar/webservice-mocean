@@ -3,16 +3,17 @@ use warnings;
 use utf8;
 
 use Test::More;
+use Test::Warn;
 
 use WebService::Mocean;
 
 my $mocean;
-my $api_key = 'foobar';
-my $api_secret = 'barfoo';
+my $api_key;
+my $api_secret;
 
-$mocean = WebService::Ocean->new(
-    api_key => $api_key,
-    api_secret => $api_secret
-);
+$mocean = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
+is($mocean->api_url, 'https://rest-api.moceansms.com/rest/1', 'expect API URL match');
+is($mocean->api_key, 'foo', 'expect API key URL match');
+is($mocean->api_secret, 'bar', 'expect API bar URL match');
 
 done_testing;

@@ -1,20 +1,44 @@
 package WebService::Mocean;
 
-use strict;
-use warnings;
-use 5.008_005;
+use utf8;
 
-use Method::Signatures;
+use Moo;
+use Types::Standard qw(Str);
+
+use strictures 2;
+use namespace::clean;
+
+with 'Role::REST::Client';
 
 our $VERSION = '0.01';
 
-method new ($class: Str :$api_key, Str :$api_secret) {
-    my $self = {};
+has api_url => (
+    isa => Str,
+    is => 'rw',
+    default => sub { 'https://rest-api.moceansms.com/rest/1' },
+);
 
-    $self->{api_key} = $api_key;
-    $self->{api_secret} = $api_secret;
+has api_key => (
+    isa => Str,
+    is => 'rw',
+    required => 1
+);
 
-    bless $self, $class;
+has api_secret => (
+    isa => Str,
+    is => 'rw',
+    required => 1
+);
+
+sub BUILD {
+    my ($self, $args) = @_;
+
+    $self->set_persistent_header('User-Agent' => __PACKAGE__ . q| |
+          . ($WebService::Mocean::VERSION || q||));
+
+    $self->server($self->api_url);
+    $self->api_key($args->{api_key});
+    $self->api_secret($args->{api_secret});
 
     return $self;
 }
