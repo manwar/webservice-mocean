@@ -15,7 +15,7 @@ our $VERSION = '0.01';
 has api_url => (
     isa => Str,
     is => 'rw',
-    default => sub { 'https://rest-api.moceansms.com/rest/1' },
+    default => sub { 'https://rest-api.moceansms.com/rest/1/' },
 );
 
 has api_key => (
@@ -43,12 +43,29 @@ sub BUILD {
     return $self;
 }
 
+sub send_mt_sms {
+    my ($self, $to, $from, $text) = @_;
+
+    my $params = {
+        'mocean-api-key' => $self->api_key,
+        'mocean-api-secret' => $self->api_secret,
+        'mocean-to' => $to,
+        'mocean-from' => $from,
+        'mocean-text' => $text,
+        'mocean-resp-format' => 'json',
+        'mocean-charset' => 'UTF-8',
+        'mocean-dlr-mask' => 1
+    };
+
+    return $self->_request('sms', $params);
+}
+
 sub _request {
     my ($self, $command, $queries, $format, $method) = @_;
 
     $command ||= q||;
     $queries ||= {};
-    $format ||= 'json';
+    $format ||= 'xml';
     $method ||= 'get';
 
     # In case the api_url was updated.
@@ -65,9 +82,7 @@ sub _request {
         die "No such HTTP method: $method";
     }
 
-    return $response->data if ($response->code eq '200');
-
-    return;
+    return $response->data;
 }
 
 
@@ -93,7 +108,7 @@ https://dev.moceansms.com.
 
 =head1 METHODS
 
-=head2 new(api_key, api_secret, [%$args])
+=head2 new($api_key, $api_secret, [%$args])
 
 Construct a new WebService::Mocean instance. The api_key and api_secret is
 compulsory fields. Optionally takes additional hash or hash reference.
@@ -114,6 +129,15 @@ The URL of the API resource.
     # Alternative way.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
     $mocean_api->api_url('http://example.com/api/');
+
+=head2 send_mt_sms($to, $from, $text)
+
+Send Mobile Terminated (MT) message, which means the message is sent from
+mobile SMS provider and terminated at the to the mobile phone.
+
+    # Send sample SMS.
+    my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
+    $mocean_api->send_mt_sms('0123456789', 'ACME Ltd.', 'Hello');
 
 =head1 COPYRIGHT AND LICENSE
 

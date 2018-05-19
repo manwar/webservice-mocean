@@ -7,11 +7,16 @@ use Test::Exception;
 
 use WebService::Mocean;
 
+my ($response, $expect) = ('', '');
+
 my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
-my $response;
 
 $response = $mocean_api->_request();
-is($response, undef, 'expect undef response');
+$expect = {
+    'err_msg' => 'Unknown+request',
+    'status' => '34'
+};
+is_deeply($response, $expect, 'expect unknown request response');
 
 dies_ok {
     $mocean_api->_request(undef, undef, undef, 'gets')

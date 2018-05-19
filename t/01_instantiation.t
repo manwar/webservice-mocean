@@ -12,7 +12,7 @@ my $api_key;
 my $api_secret;
 
 $mocean = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
-is($mocean->api_url, 'https://rest-api.moceansms.com/rest/1', 'expect API URL match');
+is($mocean->api_url, 'https://rest-api.moceansms.com/rest/1/', 'expect API URL match');
 is($mocean->api_key, 'foo', 'expect API key URL match');
 is($mocean->api_secret, 'bar', 'expect API secret URL match');
 
