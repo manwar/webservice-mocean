@@ -45,13 +45,15 @@ sub BUILD {
 }
 
 sub _request {
-    my ($self, $command, $queries) = @_;
+    my ($self, $command, $queries, $format) = @_;
 
     $command ||= q||;
     $queries ||= {};
+    $format ||= 'json';
 
     # In case the api_url was updated.
     $self->server($self->api_url);
+    $self->type(qq|application/$format|);
 
     my ($url_paths, $url_queries) = (q||, q||);
 
