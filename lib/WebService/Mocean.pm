@@ -84,11 +84,36 @@ https://dev.moceansms.com.
 =head1 SYNOPSIS
 
   use WebService::Mocean;
+  my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
 
 =head1 DESCRIPTION
 
 WebService::Mocean is Perl library for integration with MoceanSMS gateway,
 https://dev.moceansms.com.
+
+=head1 METHODS
+
+=head2 new(api_key, api_secret, [%$args])
+
+Construct a new WebService::Mocean instance. The api_key and api_secret is
+compulsory fields. Optionally takes additional hash or hash reference.
+
+    # Instantiate the class.
+    my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
+
+    # Alternative way.
+    my $mocean_api = WebService::Mocean->new({api_key => 'foo', api_secret => 'bar'});
+
+=head3 api_url
+
+The URL of the API resource.
+
+    # Instantiate the class by setting the URL of the API endpoints.
+    my $pokemon_api = WebService::Pokemon->new({api_url => 'http://example.com/api/'});
+
+    # Alternative way.
+    my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
+    $mocean_api->api_url('http://example.com/api/');
 
 =head1 COPYRIGHT AND LICENSE
 
