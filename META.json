@@ -37,8 +37,12 @@
       },
       "runtime" : {
          "requires" : {
-            "Method::Signatures" : "0",
-            "perl" : "5.008005"
+            "Moo" : "0",
+            "Types::Standard" : "0",
+            "URI::Query" : "0",
+            "namespace::clean" : "0",
+            "perl" : "5.008005",
+            "strictures" : "0"
          }
       },
       "test" : {

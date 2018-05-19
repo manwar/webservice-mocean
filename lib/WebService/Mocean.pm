@@ -4,6 +4,7 @@ use utf8;
 
 use Moo;
 use Types::Standard qw(Str);
+use URI::Query;
 
 use strictures 2;
 use namespace::clean;
@@ -41,6 +42,30 @@ sub BUILD {
     $self->api_secret($args->{api_secret});
 
     return $self;
+}
+
+sub _request {
+    my ($self, $command, $queries) = @_;
+
+    $command ||= q||;
+    $queries ||= {};
+
+    # In case the api_url was updated.
+    $self->server($self->api_url);
+
+    my ($url_paths, $url_queries) = (q||, q||);
+
+    $url_paths .= $command . "/";
+
+    $url_queries = URI::Query->new($queries)->stringify();
+
+    my $url = $url_paths . $url_queries;
+
+    my $response = $self->get($url);
+
+    return $response->data if ($response->code eq '200');
+
+    return;
 }
 
 
