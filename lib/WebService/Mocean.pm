@@ -4,7 +4,6 @@ use utf8;
 
 use Moo;
 use Types::Standard qw(Str);
-use URI::Query;
 
 use strictures 2;
 use namespace::clean;
@@ -45,25 +44,26 @@ sub BUILD {
 }
 
 sub _request {
-    my ($self, $command, $queries, $format) = @_;
+    my ($self, $command, $queries, $format, $method) = @_;
 
     $command ||= q||;
     $queries ||= {};
     $format ||= 'json';
+    $method ||= 'get';
 
     # In case the api_url was updated.
     $self->server($self->api_url);
     $self->type(qq|application/$format|);
 
-    my ($url_paths, $url_queries) = (q||, q||);
+    my $path = $command . "/";
 
-    $url_paths .= $command . "/";
-
-    $url_queries = URI::Query->new($queries)->stringify();
-
-    my $url = $url_paths . $url_queries;
-
-    my $response = $self->get($url);
+    my $response;
+    if ($self->can($method)) {
+        $response = $self->$method($path, $queries);
+    }
+    else {
+        die "No such HTTP method: $method";
+    }
 
     return $response->data if ($response->code eq '200');
 
