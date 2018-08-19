@@ -31,7 +31,7 @@ compulsory fields. Optionally takes additional hash or hash reference.
 The URL of the API resource.
 
     # Instantiate the class by setting the URL of the API endpoints.
-    my $pokemon_api = WebService::Pokemon->new({api_url => 'http://example.com/api/'});
+    my $mocean_api = WebService::Mocean->new({api_url => 'http://example.com/api/'});
 
     # Alternative way.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
