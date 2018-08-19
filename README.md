@@ -1,3 +1,10 @@
+[![Build Status](https://travis-ci.org/kianmeng/webservice-mocean.svg?branch=master)](https://travis-ci.org/kianmeng/webservice-mocean)
+[![codecov](https://codecov.io/gh/kianmeng/webservice-mocean/branch/master/graph/badge.svg)](https://codecov.io/gh/kianmeng/webservice-mocean)
+[![Coverage Status](https://coveralls.io/repos/kianmeng/webservice-mocean/badge.svg?branch=master)](https://coveralls.io/r/kianmeng/webservice-mocean?branch=master)
+[![Kwalitee status](http://cpants.cpanauthors.org/dist/WebService-Mocean.png)](http://cpants.charsbar.org/dist/overview/WebService-Mocean)
+[![Cpan license](https://img.shields.io/cpan/l/WebService-Mocean.svg)](https://metacpan.org/release/WebService-Mocean)
+[![Cpan version](https://img.shields.io/cpan/v/WebService-Mocean.svg)](https://metacpan.org/release/WebService-Mocean)
+
 # NAME
 
 WebService::Mocean - Perl library for integration with MoceanSMS gateway,
@@ -11,7 +18,7 @@ https://moceanapi.com.
 # DESCRIPTION
 
 WebService::Mocean is Perl library for integration with MoceanSMS gateway,
-https://dev.moceansms.com.
+https://moceanapi.com.
 
 # METHODS
 

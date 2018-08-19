@@ -106,7 +106,7 @@ https://moceanapi.com.
 =head1 DESCRIPTION
 
 WebService::Mocean is Perl library for integration with MoceanSMS gateway,
-https://dev.moceansms.com.
+https://moceanapi.com.
 
 =head1 METHODS
 
