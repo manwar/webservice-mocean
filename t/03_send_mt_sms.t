@@ -13,8 +13,8 @@ my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
 
 $response = $mocean_api->send_mt_sms($to, $from, $text);
 $expect = {
-    'err_msg' => 'Unknown+request',
-    'status' => '34'
+    'err_msg' => 'Authorization+failed',
+    'status' => '1'
 };
 is_deeply($response, $expect, 'expect unknown request response');
 

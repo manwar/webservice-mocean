@@ -1,7 +1,7 @@
 # NAME
 
 WebService::Mocean - Perl library for integration with MoceanSMS gateway,
-https://dev.moceansms.com.
+https://moceanapi.com.
 
 # SYNOPSIS
 

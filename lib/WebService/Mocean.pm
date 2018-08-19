@@ -15,7 +15,7 @@ our $VERSION = '0.01';
 has api_url => (
     isa => Str,
     is => 'rw',
-    default => sub { 'https://rest-api.moceansms.com/rest/1/' },
+    default => sub { 'https://rest.moceanapi.com/rest/1' },
 );
 
 has api_key => (
@@ -57,7 +57,7 @@ sub send_mt_sms {
         'mocean-dlr-mask' => 1
     };
 
-    return $self->_request('sms', $params);
+    return $self->_request('sms', $params, undef, undef, 'post');
 }
 
 sub _request {
@@ -72,7 +72,9 @@ sub _request {
     $self->server($self->api_url);
     $self->type(qq|application/$format|);
 
-    my $path = $command . "/";
+    # Do not append '/' at the end of URL. Otherwise you will get HTTP 406
+    # error.
+    my $path = "/" . $command;
 
     my $response;
     if ($self->can($method)) {
@@ -94,7 +96,7 @@ __END__
 =head1 NAME
 
 WebService::Mocean - Perl library for integration with MoceanSMS gateway,
-https://dev.moceansms.com.
+https://moceanapi.com.
 
 =head1 SYNOPSIS
 
@@ -124,7 +126,7 @@ compulsory fields. Optionally takes additional hash or hash reference.
 The URL of the API resource.
 
     # Instantiate the class by setting the URL of the API endpoints.
-    my $pokemon_api = WebService::Pokemon->new({api_url => 'http://example.com/api/'});
+    my $mocean_api = WebService::Mocean->new({api_url => 'http://example.com/api/'});
 
     # Alternative way.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');

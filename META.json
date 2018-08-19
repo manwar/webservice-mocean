@@ -1,5 +1,5 @@
 {
-   "abstract" : "Perl library for integration with MoceanSMS gateway, https://dev.moceansms.com.",
+   "abstract" : "Perl library for integration with MoceanSMS gateway, https://moceanapi.com.",
    "author" : [
       "Kian Meng, Ang."
    ],
