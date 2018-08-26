@@ -30,7 +30,12 @@
          }
       },
       "develop" : {
+         "recommends" : {
+            "Devel::NYTProf" : "0"
+         },
          "requires" : {
+            "App::CISetup" : "0",
+            "App::Software::License" : "0",
             "Dist::Milla" : "v1.0.20",
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Meta" : "0",
@@ -43,17 +48,26 @@
       },
       "runtime" : {
          "requires" : {
+            "JSON" : "0",
             "Moo" : "0",
+            "REST::Client" : "0",
+            "Role::REST::Client" : "0",
             "Types::Standard" : "0",
             "namespace::clean" : "0",
             "perl" : "5.008005",
-            "strictures" : "0"
+            "strictures" : "2"
          }
       },
       "test" : {
          "requires" : {
-            "Test::Exception" : "0",
-            "Test::More" : "0"
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
+            "Test::DistManifest" : "0",
+            "Test::HasVersion" : "0",
+            "Test::Kwalitee" : "0",
+            "Test::More" : "0",
+            "Test::Warn" : "0"
          }
       }
    },
