@@ -58,27 +58,26 @@ sub BUILD {
 sub send_sms {
     my ($self, $params) = @_;
 
-    return $self->_request('sms', $params, undef, undef, 'post');
+    return $self->_request('sms', $params, 'post');
 }
 
 sub send_verification_code {
     my ($self, $params) = @_;
 
-    return $self->_request('verify/req', $params, undef, undef, 'post');
+    return $self->_request('verify/req', $params, 'post');
 }
 
 sub check_verification_code {
     my ($self, $params) = @_;
 
-    return $self->_request('verify/check', $params, undef, undef, 'post');
+    return $self->_request('verify/check', $params, 'post');
 }
 
 sub _request {
-    my ($self, $command, $queries, $format, $method) = @_;
+    my ($self, $command, $queries, $method) = @_;
 
     $command ||= q||;
     $queries ||= {};
-    $format ||= 'xml';
     $method ||= 'get';
 
     $self->_check_required_params($command, $queries);
@@ -88,7 +87,10 @@ sub _request {
 
     # In case the api_url was updated.
     $self->server($self->api_url);
-    $self->type(qq|application/$format|);
+
+    my $response_format = $queries->{'mocean-resp-format'} || 'xml';
+
+    $self->type(qq|application/$response_format|);
 
     # Do not append '/' at the end of URL. Otherwise you will get HTTP 406
     # error.
