@@ -105,12 +105,12 @@ sub _check_required_params {
 
     my $required_fields = $self->_required_fields->{$command};
 
+    die "Missing or invalid command : $command" if (!defined $required_fields);
+
     my @param_keys = keys %$params;
     my @missing = array_minus(@$required_fields, @param_keys);
 
-    if (scalar @missing) {
-        die "Missing required params: " . join(', ', @missing);
-    }
+    die "Missing required params: " . join(', ', @missing) if (scalar @missing);
 }
 
 
