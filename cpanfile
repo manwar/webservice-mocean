@@ -11,6 +11,7 @@ requires 'Types::Standard';
 
 on test => sub {
     requires 'Pod::Coverage::TrustPod';
+    requires 'Test::CPAN::Meta';
     requires 'Test::More';
     requires 'Test::Warn';
     requires 'Test::Kwalitee';

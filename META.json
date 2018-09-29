@@ -65,6 +65,7 @@
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
             "Pod::Coverage::TrustPod" : "0",
+            "Test::CPAN::Meta" : "0",
             "Test::DistManifest" : "0",
             "Test::HasVersion" : "0",
             "Test::Kwalitee" : "0",
