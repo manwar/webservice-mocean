@@ -30,7 +30,7 @@ If you have Docker installed, you can build your Docker container for this
 project.
 
     $ docker build -t webservice-mocean .
-    $ docker run -it -v $(pwd):/root webservice-restcountries bash
+    $ docker run -it -v $(pwd):/root webservice-mocean bash
     # cpanm --installdeps --notest .
 
 ## Milla

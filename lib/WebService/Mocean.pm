@@ -4,6 +4,7 @@ use utf8;
 
 use Moo;
 use Types::Standard qw(Str);
+use Array::Utils qw(array_minus);
 
 use strictures 2;
 use namespace::clean;
@@ -44,15 +45,14 @@ sub BUILD {
 }
 
 sub send_sms {
-    my ($self, $to, $from, $text) = @_;
+    my ($self, $args) = @_;
 
-    my $params = {
-        'mocean-api-key' => $self->api_key,
-        'mocean-api-secret' => $self->api_secret,
-        'mocean-from' => $from,
-        'mocean-to' => $to,
-        'mocean-text' => $text,
-    };
+    my $required_fields = [qw(mocean-from mocean-to mocean-text)];
+
+    $self->_check_required_params($args, $required_fields);
+
+    my $params = _auth_params();
+    $params = {%$params, %$args};
 
     return $self->_request('sms', $params, undef, undef, 'post');
 }
@@ -82,6 +82,26 @@ sub _request {
     }
 
     return $response->data;
+}
+
+sub _auth_params {
+    my ($self) = @_;
+
+    return {
+        'mocean-api-key' => $self->api_key,
+        'mocean-api-secret' => $self->api_secret,
+    };
+}
+
+sub _check_required_params {
+    my ($self, $params, $required_fields) = @_;
+
+    my @param_keys = keys %$params;
+    my @missing = array_minus(@$required_fields, @param_keys);
+
+    if (scalar @missing) {
+        die "Missing required params: " . join(', ', @missing);
+    }
 }
 
 
@@ -115,7 +135,7 @@ If you have Docker installed, you can build your Docker container for this
 project.
 
     $ docker build -t webservice-mocean .
-    $ docker run -it -v $(pwd):/root webservice-restcountries bash
+    $ docker run -it -v $(pwd):/root webservice-mocean bash
     # cpanm --installdeps --notest .
 
 =head2 Milla

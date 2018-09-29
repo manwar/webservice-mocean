@@ -2,6 +2,7 @@ requires 'perl', '5.008005';
 requires 'namespace::clean';
 requires 'strictures', '2';
 
+requires 'Array::Utils';
 requires 'JSON';
 requires 'Moo';
 requires 'REST::Client';
