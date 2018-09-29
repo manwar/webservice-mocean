@@ -43,7 +43,7 @@ sub BUILD {
     return $self;
 }
 
-sub send_mt_sms {
+sub send_sms {
     my ($self, $to, $from, $text) = @_;
 
     my $params = {
@@ -166,14 +166,14 @@ The URL of the API resource.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
     $mocean_api->api_url('http://example.com/api/');
 
-=head2 send_mt_sms($to, $from, $text)
+=head2 send_sms($to, $from, $text)
 
 Send Mobile Terminated (MT) message, which means the message is sent from
 mobile SMS provider and terminated at the to the mobile phone.
 
     # Send sample SMS.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
-    $mocean_api->send_mt_sms('0123456789', 'ACME Ltd.', 'Hello');
+    $mocean_api->send_sms('0123456789', 'ACME Ltd.', 'Hello');
 
 =head1 COPYRIGHT AND LICENSE
 
