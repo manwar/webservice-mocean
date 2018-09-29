@@ -49,12 +49,9 @@ sub send_mt_sms {
     my $params = {
         'mocean-api-key' => $self->api_key,
         'mocean-api-secret' => $self->api_secret,
-        'mocean-to' => $to,
         'mocean-from' => $from,
+        'mocean-to' => $to,
         'mocean-text' => $text,
-        'mocean-resp-format' => 'json',
-        'mocean-charset' => 'UTF-8',
-        'mocean-dlr-mask' => 1
     };
 
     return $self->_request('sms', $params, undef, undef, 'post');
