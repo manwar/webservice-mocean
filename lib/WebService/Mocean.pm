@@ -3,7 +3,7 @@ package WebService::Mocean;
 use utf8;
 
 use Moo;
-use Types::Standard qw(Str);
+use Types::Standard qw(Str Ref);
 use Array::Utils qw(array_minus);
 
 use strictures 2;
@@ -31,6 +31,15 @@ has api_secret => (
     required => 1
 );
 
+has '_required_fields' => (
+    isa => Ref["HASH"],
+    is => 'ro',
+    init_arg => undef,
+    default => sub {{
+        sms => [qw(mocean-from mocean-to mocean-text)],
+    }}
+);
+
 sub BUILD {
     my ($self, $args) = @_;
 
@@ -45,14 +54,7 @@ sub BUILD {
 }
 
 sub send_sms {
-    my ($self, $args) = @_;
-
-    my $required_fields = [qw(mocean-from mocean-to mocean-text)];
-
-    $self->_check_required_params($args, $required_fields);
-
-    my $params = _auth_params();
-    $params = {%$params, %$args};
+    my ($self, $params) = @_;
 
     return $self->_request('sms', $params, undef, undef, 'post');
 }
@@ -64,6 +66,11 @@ sub _request {
     $queries ||= {};
     $format ||= 'xml';
     $method ||= 'get';
+
+    $self->_check_required_params($command, $queries);
+
+    my $params = _auth_params();
+    $queries = {%$queries, %$params};
 
     # In case the api_url was updated.
     $self->server($self->api_url);
@@ -94,7 +101,9 @@ sub _auth_params {
 }
 
 sub _check_required_params {
-    my ($self, $params, $required_fields) = @_;
+    my ($self, $command, $params) = @_;
+
+    my $required_fields = $self->_required_fields->{$command};
 
     my @param_keys = keys %$params;
     my @missing = array_minus(@$required_fields, @param_keys);
