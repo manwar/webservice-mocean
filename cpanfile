@@ -9,11 +9,13 @@ requires 'Role::REST::Client';
 requires 'Types::Standard';
 
 on test => sub {
+    requires 'Pod::Coverage::TrustPod';
     requires 'Test::More';
     requires 'Test::Warn';
     requires 'Test::Kwalitee';
     requires 'Test::HasVersion';
     requires 'Test::DistManifest';
+    requires 'Test::Pod::Coverage';
 };
 
 on 'develop' => sub {
