@@ -37,6 +37,8 @@ has '_required_fields' => (
     init_arg => undef,
     default => sub {{
         sms => [qw(mocean-from mocean-to mocean-text)],
+        'verify/req' => [qw(mocean-to mocean-brand)],
+        'verify/check' => [qw(mocean-reqid mocean-code)],
     }}
 );
 
@@ -57,6 +59,18 @@ sub send_sms {
     my ($self, $params) = @_;
 
     return $self->_request('sms', $params, undef, undef, 'post');
+}
+
+sub send_verification_code {
+    my ($self, $params) = @_;
+
+    return $self->_request('verify/req', $params, undef, undef, 'post');
+}
+
+sub check_verification_code {
+    my ($self, $params) = @_;
+
+    return $self->_request('verify/check', $params, undef, undef, 'post');
 }
 
 sub _request {
@@ -195,14 +209,35 @@ The URL of the API resource.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
     $mocean_api->api_url('http://example.com/api/');
 
-=head2 send_sms($to, $from, $text)
+=head2 send_sms($params)
 
 Send Mobile Terminated (MT) message, which means the message is sent from
 mobile SMS provider and terminated at the to the mobile phone.
 
     # Send sample SMS.
-    my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
-    $mocean_api->send_sms('0123456789', 'ACME Ltd.', 'Hello');
+    my $response = $mocean_api->send_sms({
+        'mocean-to' => '0123456789',
+        'mocean-from' => 'ACME Ltd.',
+        'mocean-text' => 'Hello'
+    });
+
+=head2 send_verification_code($params)
+
+Send a random code for verification to a mobile number.
+
+    my $response = $mocean_api->send_verification_code({
+        'mocean-to' => '0123456789',
+        'mocean-brand' => 'ACME Ltd.',
+    });
+
+=head2 check_verification_code($params)
+
+Check the verfication code received from your user.
+
+    my $response = $mocean_api->check_verification_code({
+        'mocean-reqid' => '395935',
+        'mocean-code' => '234839',
+    });
 
 =head1 COPYRIGHT AND LICENSE
 
