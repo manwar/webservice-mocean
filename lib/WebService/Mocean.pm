@@ -69,7 +69,7 @@ sub _request {
 
     $self->_check_required_params($command, $queries);
 
-    my $params = _auth_params();
+    my $params = $self->_auth_params();
     $queries = {%$queries, %$params};
 
     # In case the api_url was updated.
