@@ -2,6 +2,10 @@ Revision history for WebService-Mocean
 
 {{$NEXT}}
 
+0.03  2018-09-30 17:50:55 +08
+        - Fix unused request params
+        - Add query API web service calls
+
 0.02  2018-09-30 00:51:14 +08
         - Check for required parameters
         - Add verification API web service calls

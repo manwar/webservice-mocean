@@ -11,7 +11,7 @@ use namespace::clean;
 
 with 'Role::REST::Client';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 has api_url => (
     isa => Str,
