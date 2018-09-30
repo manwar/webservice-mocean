@@ -321,7 +321,7 @@ Get your Mocean account pricing and supported destination.
 
     my $response = $mocean_api->get_account_pricing();
 
-=head2 get_message_status()
+=head2 get_message_status($params)
 
 Get the outbound SMS current status.
 
