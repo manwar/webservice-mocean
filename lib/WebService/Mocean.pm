@@ -39,6 +39,9 @@ has '_required_fields' => (
         sms => [qw(mocean-from mocean-to mocean-text)],
         'verify/req' => [qw(mocean-to mocean-brand)],
         'verify/check' => [qw(mocean-reqid mocean-code)],
+        'report/message' => [qw(mocean-msgid)],
+        'account/balance' => [],
+        'account/pricing' => [],
     }}
 );
 
@@ -71,6 +74,24 @@ sub check_verification_code {
     my ($self, $params) = @_;
 
     return $self->_request('verify/check', $params, 'post');
+}
+
+sub get_account_balance {
+    my ($self) = @_;
+
+    return $self->_request('account/balance', undef, 'get');
+}
+
+sub get_account_pricing {
+    my ($self) = @_;
+
+    return $self->_request('account/pricing', undef, 'get');
+}
+
+sub get_message_status {
+    my ($self, $params) = @_;
+
+    return $self->_request('report/message', $params, 'get');
 }
 
 sub _request {
@@ -239,6 +260,26 @@ Check the verfication code received from your user.
     my $response = $mocean_api->check_verification_code({
         'mocean-reqid' => '395935',
         'mocean-code' => '234839',
+    });
+
+=head2 get_account_balance()
+
+Get your Mocean account balance.
+
+    my $response = $mocean_api->get_account_balance();
+
+=head2 get_account_pricing()
+
+Get your Mocean account pricing and supported destination.
+
+    my $response = $mocean_api->get_account_pricing();
+
+=head2 get_message_status()
+
+Get the outbound SMS current status.
+
+    my $response = $mocean_api->get_message_status({
+        'mocean-msgid' => 123456
     });
 
 =head1 COPYRIGHT AND LICENSE

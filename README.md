@@ -111,6 +111,26 @@ Check the verfication code received from your user.
         'mocean-code' => '234839',
     });
 
+## get\_account\_balance()
+
+Get your Mocean account balance.
+
+    my $response = $mocean_api->get_account_balance();
+
+## get\_account\_pricing()
+
+Get your Mocean account pricing and supported destination.
+
+    my $response = $mocean_api->get_account_pricing();
+
+## get\_message\_status()
+
+Get the outbound SMS current status.
+
+    my $response = $mocean_api->get_message_status({
+        'mocean-msgid' => 123456
+    });
+
 # COPYRIGHT AND LICENSE
 
 This software is Copyright (c) 2018 by Kian Meng, Ang.
