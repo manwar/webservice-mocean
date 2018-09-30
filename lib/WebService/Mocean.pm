@@ -45,6 +45,42 @@ has '_required_fields' => (
     }}
 );
 
+has '_response_status' => (
+    isa => Ref["HASH"],
+    is => 'ro',
+    init_arg => undef,
+    default => sub {{
+        0 => 'OK. No error encountered.',
+        1 => 'Authorization failed. Invalid mocean-api-key or mocean-api-secret.',
+        2 => 'Insufficient balance. Not enough credit in the account to send to at least one of the receivers.',
+        4 => 'At least one of the destination numbers is not white listed.',
+        5 => 'At least one of the destination numbers is black listed.',
+        6 => 'No destination number specified.',
+        8 => 'Sender ID not found.',
+        9 => 'Invalid UDH field.',
+        10 => 'Invalid mclass field.',
+        17 => 'Invalid validity field.',
+        19 => 'Invalid character set or message body.',
+        20 => 'Insufficient headers for sending SMS.',
+        23 => 'Empty mocean-text.',
+        24 => 'Unknown error.',
+        26 => 'Invalid schedule format. (Hint: must have leading zero for time.)',
+        27 => 'Max number of receivers in a single request reached. Too many receivers in mocean-to field.',
+        28 => 'Invalid destination number. Receiver is invalid after stripping all non-numerics.',
+        29 => 'Message body is too long.',
+        32 => 'Message throttled.',
+        34 => 'Unknown request.',
+        37 => 'Invalid sender length.',
+        40 => 'System down for maintenance.',
+        43 => 'SMS flooding detected.',
+        44 => 'Invalid Sender ID.',
+        45 => 'System error, please retry later.',
+        48 => 'At least one of the senders is black listed.',
+        49 => 'At least one of the senders is not white listed.',
+        50 => 'Inappropriate content detected.',
+    }}
+);
+
 sub BUILD {
     my ($self, $args) = @_;
 
@@ -125,7 +161,18 @@ sub _request {
         die "No such HTTP method: $method";
     }
 
-    return $response->data;
+    return $self->_response($response->data);
+}
+
+sub _response {
+    my ($self, $response) = @_;
+
+    my $response_code = $response->{'mocean-code'};
+    my $response_status = $self->_response_status->{$response_code};
+
+    $response->{'mocean-code-status'} = $response_status;
+
+    return $response;
 }
 
 sub _auth_params {
