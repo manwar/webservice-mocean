@@ -19,7 +19,7 @@ $params = {
 };
 
 $got = $mocean_api->client->_check_required_params('sms', $params);
-is($got, 0, 'except no error throw');
+is($got, 0, 'expect no error throw');
 
 #
 $params = {

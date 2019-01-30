@@ -81,53 +81,53 @@ The URL of the API resource.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
     $mocean_api->api_url('http://example.com/api/');
 
-## send\_sms($params)
+## sms->send($params)
 
 Send Mobile Terminated (MT) message, which means the message is sent from
 mobile SMS provider and terminated at the to the mobile phone.
 
     # Send sample SMS.
-    my $response = $mocean_api->send_sms({
+    my $response = $mocean_api->sms->send({
         'mocean-to' => '0123456789',
         'mocean-from' => 'ACME Ltd.',
         'mocean-text' => 'Hello'
     });
 
-## send\_verification\_code($params)
+## sms->send\_verification\_code($params)
 
 Send a random code for verification to a mobile number.
 
-    my $response = $mocean_api->send_verification_code({
+    my $response = $mocean_api->sms->send_verification_code({
         'mocean-to' => '0123456789',
         'mocean-brand' => 'ACME Ltd.',
     });
 
-## check\_verification\_code($params)
+## sms->check\_verification\_code($params)
 
 Check the verfication code received from your user.
 
-    my $response = $mocean_api->check_verification_code({
+    my $response = $mocean_api->sms->check_verification_code({
         'mocean-reqid' => '395935',
         'mocean-code' => '234839',
     });
 
-## get\_account\_balance()
+## account->get\_balance()
 
 Get your Mocean account balance.
 
-    my $response = $mocean_api->get_account_balance();
+    my $response = $mocean_api->account->get_balance();
 
-## get\_account\_pricing()
+## account->get\_pricing()
 
 Get your Mocean account pricing and supported destination.
 
-    my $response = $mocean_api->get_account_pricing();
+    my $response = $mocean_api->account->get_pricing();
 
-## get\_message\_status($params)
+## report->get\_message\_status($params)
 
 Get the outbound SMS current status.
 
-    my $response = $mocean_api->get_message_status({
+    my $response = $mocean_api->report->get_message_status({
         'mocean-msgid' => 123456
     });
 

@@ -9,8 +9,11 @@ use strictures 2;
 use namespace::clean;
 
 use WebService::Mocean::Client;
+use WebService::Mocean::Sms;
+use WebService::Mocean::Account;
+use WebService::Mocean::Report;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 has api_key => (
     isa => Str,
@@ -46,42 +49,47 @@ sub _build_client {
     return $client;
 }
 
-sub send_sms {
-    my ($self, $params) = @_;
+has sms => (
+    is => 'lazy'
+);
 
-    return $self->client->request('sms', $params, 'post');
+sub _build_sms {
+    my $self = shift;
+
+    my $sms = WebService::Mocean::Sms->new(
+        client => $self->client
+    );
+
+    return $sms;
 }
 
-sub send_verification_code {
-    my ($self, $params) = @_;
+has account => (
+    is => 'lazy'
+);
 
-    return $self->client->request('verify/req', $params, 'post');
+sub _build_account {
+    my $self = shift;
+
+    my $account = WebService::Mocean::Account->new(
+        client => $self->client
+    );
+
+    return $account;
 }
 
-sub check_verification_code {
-    my ($self, $params) = @_;
+has report => (
+    is => 'lazy'
+);
 
-    return $self->client->request('verify/check', $params, 'post');
+sub _build_report {
+    my $self = shift;
+
+    my $report = WebService::Mocean::Report->new(
+        client => $self->client
+    );
+
+    return $report;
 }
-
-sub get_account_balance {
-    my ($self) = @_;
-
-    return $self->client->_request('account/balance', undef, 'get');
-}
-
-sub get_account_pricing {
-    my ($self) = @_;
-
-    return $self->client->request('account/pricing', undef, 'get');
-}
-
-sub get_message_status {
-    my ($self, $params) = @_;
-
-    return $self->client->request('report/message', $params, 'get');
-}
-
 
 1;
 __END__
@@ -164,53 +172,53 @@ The URL of the API resource.
     my $mocean_api = WebService::Mocean->new(api_key => 'foo', api_secret => 'bar');
     $mocean_api->api_url('http://example.com/api/');
 
-=head2 send_sms($params)
+=head2 sms->send($params)
 
 Send Mobile Terminated (MT) message, which means the message is sent from
 mobile SMS provider and terminated at the to the mobile phone.
 
     # Send sample SMS.
-    my $response = $mocean_api->send_sms({
+    my $response = $mocean_api->sms->send({
         'mocean-to' => '0123456789',
         'mocean-from' => 'ACME Ltd.',
         'mocean-text' => 'Hello'
     });
 
-=head2 send_verification_code($params)
+=head2 sms->send_verification_code($params)
 
 Send a random code for verification to a mobile number.
 
-    my $response = $mocean_api->send_verification_code({
+    my $response = $mocean_api->sms->send_verification_code({
         'mocean-to' => '0123456789',
         'mocean-brand' => 'ACME Ltd.',
     });
 
-=head2 check_verification_code($params)
+=head2 sms->check_verification_code($params)
 
 Check the verfication code received from your user.
 
-    my $response = $mocean_api->check_verification_code({
+    my $response = $mocean_api->sms->check_verification_code({
         'mocean-reqid' => '395935',
         'mocean-code' => '234839',
     });
 
-=head2 get_account_balance()
+=head2 account->get_balance()
 
 Get your Mocean account balance.
 
-    my $response = $mocean_api->get_account_balance();
+    my $response = $mocean_api->account->get_balance();
 
-=head2 get_account_pricing()
+=head2 account->get_pricing()
 
 Get your Mocean account pricing and supported destination.
 
-    my $response = $mocean_api->get_account_pricing();
+    my $response = $mocean_api->account->get_pricing();
 
-=head2 get_message_status($params)
+=head2 report->get_message_status($params)
 
 Get the outbound SMS current status.
 
-    my $response = $mocean_api->get_message_status({
+    my $response = $mocean_api->report->get_message_status({
         'mocean-msgid' => 123456
     });
 
