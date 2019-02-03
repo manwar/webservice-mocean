@@ -1,17 +1,14 @@
 package WebService::Mocean;
 
+use namespace::clean;
+use strictures 2;
 use utf8;
 
+use Module::Runtime qw(require_module);
 use Moo;
-use Types::Standard qw(Str Ref);
-
-use strictures 2;
-use namespace::clean;
+use Types::Standard qw(Str InstanceOf);
 
 use WebService::Mocean::Client;
-use WebService::Mocean::Sms;
-use WebService::Mocean::Account;
-use WebService::Mocean::Report;
 
 our $VERSION = '0.05';
 
@@ -34,7 +31,8 @@ has api_url => (
 );
 
 has client => (
-    is => 'lazy'
+    is => 'lazy',
+    isa => InstanceOf['WebService::Mocean::Client'],
 );
 
 sub _build_client {
@@ -50,45 +48,27 @@ sub _build_client {
 }
 
 has sms => (
-    is => 'lazy'
+    is => 'lazy',
+    default => sub { _delegate(shift, 'Sms') },
 );
-
-sub _build_sms {
-    my $self = shift;
-
-    my $sms = WebService::Mocean::Sms->new(
-        client => $self->client
-    );
-
-    return $sms;
-}
 
 has account => (
-    is => 'lazy'
+    is => 'lazy',
+    default => sub { _delegate(shift, 'Account') },
 );
-
-sub _build_account {
-    my $self = shift;
-
-    my $account = WebService::Mocean::Account->new(
-        client => $self->client
-    );
-
-    return $account;
-}
 
 has report => (
-    is => 'lazy'
+    is => 'lazy',
+    default => sub { _delegate(shift, 'Report') },
 );
 
-sub _build_report {
-    my $self = shift;
+sub _delegate {
+    my ($self, $module) = @_;
 
-    my $report = WebService::Mocean::Report->new(
-        client => $self->client
-    );
+    my $package = __PACKAGE__ . "::$module";
+    require_module $package;
 
-    return $report;
+    return $package->new(client => $self->client);
 }
 
 1;

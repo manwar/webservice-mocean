@@ -1,5 +1,9 @@
 package WebService::Mocean::Sms;
 
+use utf8;
+use strictures 2;
+use namespace::clean;
+
 use Moo;
 use Types::Standard qw(InstanceOf);
 
