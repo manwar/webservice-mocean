@@ -1,7 +1,7 @@
 {
    "abstract" : "Perl library for integration with MoceanSMS gateway, https://moceanapi.com.",
    "author" : [
-      "Kian Meng, Ang."
+      "-2019 by Kian Meng, Ang."
    ],
    "dynamic_config" : 0,
    "generated_by" : "Dist::Milla version v1.0.20, Dist::Zilla version 6.012, CPAN::Meta::Converter version 2.150010",
@@ -87,7 +87,7 @@
          "web" : "https://github.com/kianmeng/webservice-mocean"
       }
    },
-   "version" : "0.05",
+   "version" : "0.04",
    "x_contributors" : [
       "Kian-Meng, Ang <kianmeng@users.noreply.github.com>"
    ],

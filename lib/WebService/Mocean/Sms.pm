@@ -7,7 +7,7 @@ use namespace::clean;
 use Moo;
 use Types::Standard qw(InstanceOf);
 
-our $VERSION = '0.05';
+our $VERSION = '0.04';
 
 has client => (
     is => 'rw',

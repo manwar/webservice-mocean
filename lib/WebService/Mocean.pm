@@ -10,7 +10,7 @@ use Types::Standard qw(Str InstanceOf);
 
 use WebService::Mocean::Client;
 
-our $VERSION = '0.05';
+our $VERSION = '0.04';
 
 has api_key => (
     isa => Str,
@@ -204,7 +204,7 @@ Get the outbound SMS current status.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is Copyright (c) 2018 by Kian Meng, Ang.
+This software is Copyright (c) 2018-2019 by Kian Meng, Ang.
 
 This is free software, licensed under:
 

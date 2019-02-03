@@ -6,7 +6,7 @@ use Array::Utils qw(array_minus);
 
 with 'Role::REST::Client';
 
-our $VERSION = '0.05';
+our $VERSION = '0.04';
 
 has api_url => (
     isa => Str,
