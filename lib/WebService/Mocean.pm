@@ -15,13 +15,13 @@ our $VERSION = '0.04';
 has api_key => (
     isa => Str,
     is => 'rw',
-    required => 1
+    required => 1,
 );
 
 has api_secret => (
     isa => Str,
     is => 'rw',
-    required => 1
+    required => 1,
 );
 
 has api_url => (
@@ -88,7 +88,7 @@ https://moceanapi.com.
 
 =head1 DESCRIPTION
 
-WebService::Mocean is Perl library for integration with MoceanSMS gateway,
+WebService::Mocean is Perl library for integrating with MoceanSMS gateway,
 https://moceanapi.com.
 
 =head1 DEVELOPMENT
@@ -202,7 +202,7 @@ Get the outbound SMS current status.
         'mocean-msgid' => 123456
     });
 
-=head1 COPYRIGHT AND LICENSE
+=head1 LICENSE AND COPYRIGHT
 
 This software is Copyright (c) 2018-2019 by Kian Meng, Ang.
 

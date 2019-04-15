@@ -17,7 +17,7 @@ https://moceanapi.com.
 
 # DESCRIPTION
 
-WebService::Mocean is Perl library for integration with MoceanSMS gateway,
+WebService::Mocean is Perl library for integrating with MoceanSMS gateway,
 https://moceanapi.com.
 
 # DEVELOPMENT
@@ -131,7 +131,7 @@ Get the outbound SMS current status.
         'mocean-msgid' => 123456
     });
 
-# COPYRIGHT AND LICENSE
+# LICENSE AND COPYRIGHT
 
 This software is Copyright (c) 2018-2019 by Kian Meng, Ang.
 

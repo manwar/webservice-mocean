@@ -17,17 +17,17 @@ has api_url => (
 has api_key => (
     isa => Str,
     is => 'rw',
-    required => 1
+    required => 1,
 );
 
 has api_secret => (
     isa => Str,
     is => 'rw',
-    required => 1
+    required => 1,
 );
 
 has '_response_status' => (
-    isa => Ref["HASH"],
+    isa => Ref['HASH'],
     is => 'ro',
     init_arg => undef,
     default => sub {{
@@ -59,11 +59,11 @@ has '_response_status' => (
         48 => 'At least one of the senders is black listed.',
         49 => 'At least one of the senders is not white listed.',
         50 => 'Inappropriate content detected.',
-    }}
+    }},
 );
 
 has '_required_fields' => (
-    isa => Ref["HASH"],
+    isa => Ref['HASH'],
     is => 'ro',
     init_arg => undef,
     default => sub {{
@@ -73,7 +73,7 @@ has '_required_fields' => (
         'report/message' => [qw(mocean-msgid)],
         'account/balance' => [],
         'account/pricing' => [],
-    }}
+    }},
 );
 
 sub BUILD {
@@ -100,7 +100,7 @@ sub request {
     $self->_check_required_params($command, $queries);
 
     my $params = $self->_auth_params();
-    $queries = {%$queries, %$params};
+    $queries = {%{$queries}, %{$params}};
 
     # In case the api_url was updated.
     $self->server($self->api_url);
@@ -111,7 +111,7 @@ sub request {
 
     # Do not append '/' at the end of URL. Otherwise you will get HTTP 406
     # error.
-    my $path = "/" . $command;
+    my $path = "/$command";
 
     my $response;
     if ($self->can($method)) {
@@ -151,8 +151,8 @@ sub _check_required_params {
 
     die "Missing or invalid command : $command" if (!defined $required_fields);
 
-    my @param_keys = keys %$params;
-    my @missing = array_minus(@$required_fields, @param_keys);
+    my @param_keys = keys %{$params};
+    my @missing = array_minus(@{$required_fields}, @param_keys);
 
     die "Missing required params: " . join(', ', @missing) if (scalar @missing);
 }

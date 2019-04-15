@@ -67,6 +67,7 @@
             "Pod::Coverage::TrustPod" : "0",
             "Test::CPAN::Meta" : "0",
             "Test::DistManifest" : "0",
+            "Test::Exception" : "0",
             "Test::HasVersion" : "0",
             "Test::Kwalitee" : "0",
             "Test::More" : "0",
