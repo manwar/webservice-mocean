@@ -93,7 +93,7 @@ https://moceanapi.com.
 
 =head1 DEVELOPMENT
 
-Source repo at L<https://github.com/kianmeng/webservice-mocean|https://github.com/kianmeng/webservice-mocean>.
+Source repository at L<https://github.com/kianmeng/webservice-mocean|https://github.com/kianmeng/webservice-mocean>.
 
 =head2 Docker
 
@@ -175,7 +175,7 @@ Send a random code for verification to a mobile number.
 
 =head2 sms->check_verification_code($params)
 
-Check the verfication code received from your user.
+Check the verification code received from your user.
 
     my $response = $mocean_api->sms->check_verification_code({
         'mocean-reqid' => '395935',

@@ -22,7 +22,7 @@ https://moceanapi.com.
 
 # DEVELOPMENT
 
-Source repo at [https://github.com/kianmeng/webservice-mocean](https://github.com/kianmeng/webservice-mocean).
+Source repository at [https://github.com/kianmeng/webservice-mocean](https://github.com/kianmeng/webservice-mocean).
 
 ## Docker
 
@@ -104,7 +104,7 @@ Send a random code for verification to a mobile number.
 
 ## sms->check\_verification\_code($params)
 
-Check the verfication code received from your user.
+Check the verification code received from your user.
 
     my $response = $mocean_api->sms->check_verification_code({
         'mocean-reqid' => '395935',

@@ -1,5 +1,6 @@
 package WebService::Mocean::Client;
 
+use Carp;
 use Moo;
 use Types::Standard qw(Str Ref);
 use Array::Utils qw(array_minus);
@@ -118,7 +119,7 @@ sub request {
         $response = $self->$method($path, $queries);
     }
     else {
-        die "No such HTTP method: $method";
+        croak "No such HTTP method: $method";
     }
 
     return $self->_response($response->data);
@@ -149,12 +150,12 @@ sub _check_required_params {
 
     my $required_fields = $self->_required_fields->{$command};
 
-    die "Missing or invalid command : $command" if (!defined $required_fields);
+    croak "Missing or invalid command : $command" if (!defined $required_fields);
 
     my @param_keys = keys %{$params};
     my @missing = array_minus(@{$required_fields}, @param_keys);
 
-    die "Missing required params: " . join(', ', @missing) if (scalar @missing);
+    croak 'Missing required params: ' . join ', ', @missing if (scalar @missing);
 }
 
 1;

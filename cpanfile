@@ -3,6 +3,7 @@ requires 'namespace::clean';
 requires 'strictures', '2';
 
 requires 'Array::Utils';
+requires 'Carp';
 requires 'JSON';
 requires 'Moo';
 requires 'REST::Client';
