@@ -9,6 +9,7 @@ requires 'Moo';
 requires 'REST::Client';
 requires 'Role::REST::Client';
 requires 'Types::Standard';
+requires 'Module::Runtime';
 
 on test => sub {
     requires 'Pod::Coverage::TrustPod';
